@@ -13,8 +13,12 @@ class StudyPlanViewController: UIViewController {
     @IBOutlet weak var tfSection: UITextField!
     @IBOutlet weak var dpDate: UIDatePicker!
     
+    let sm = StudyManager.shared
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
     }
 
     @IBAction func schedule(_ sender: UIButton) {
