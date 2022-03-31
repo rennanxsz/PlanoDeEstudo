@@ -37,7 +37,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
         
+        let confirmAction = UNNotificationAction(identifier: "Confirm", title: "Já estudei", options: [.foreground])
+        let cancelAction = UNNotificationAction(identifier: "Cancel", title: "Cancelar", options: [])
         
+        let category = UNNotificationCategory(identifier: "Lembrete", actions: [confirmAction, cancelAction], intentIdentifiers: [], hiddenPreviewsBodyPlaceholder: "", options: [.customDismissAction])
+        center.setNotificationCategories([category])
         
         return true
     }
