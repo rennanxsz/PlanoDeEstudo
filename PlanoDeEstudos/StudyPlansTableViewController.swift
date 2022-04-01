@@ -18,6 +18,7 @@ class StudyPlansTableViewController: UITableViewController {
     }()
     override func viewDidLoad() {
         super.viewDidLoad()
+        NotificationCenter.default.addObserver(self, selector: #selector(onRecieve(notification:)), name: NSNotification.Name(rawValue: "Confirmed"), object: nil)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -25,9 +26,17 @@ class StudyPlansTableViewController: UITableViewController {
         tableView.reloadData()
     }
     
+    @objc func onRecieve(notification: Notification) {
+        if let userInfo = notification.userInfo, let id = userInfo["id"] as? String {
+            sm.setPlanDone(id: id)
+            tableView.reloadData()
+        }
+    }
+    
     // MARK: - Table view data source
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return sm.studyPlans.count
+        
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -35,6 +44,8 @@ class StudyPlansTableViewController: UITableViewController {
         let studyPlan = sm.studyPlans[indexPath.row]
         cell.textLabel?.text = studyPlan.section
         cell.detailTextLabel?.text = dateFormatter.string(from: studyPlan.date)
+        
+        cell.backgroundColor = studyPlan.done ? .green : .white
         
         return cell
     }
