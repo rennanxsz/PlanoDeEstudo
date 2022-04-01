@@ -37,7 +37,9 @@ class StudyPlanViewController: UIViewController {
         //Catalogando a notificação
         content.categoryIdentifier = "Lembrete"
         
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 15, repeats: false)
+        //let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 15, repeats: false)
+        let dateComponent = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: dpDate.date)
+        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponent, repeats: false)
         
         let request = UNNotificationRequest(identifier: id, content: content, trigger: trigger)
         
